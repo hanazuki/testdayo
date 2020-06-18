@@ -1,6 +1,8 @@
-FROM centos:6
-MAINTAINER payo
+# syntax = docker/dockerfile:experimental
 
-RUN yum install -y nc
-RUN nc -l 127.0.0.1 7002& sleep 1; netstat -nap --inet
+FROM debian:buster as builder
+RUN mkdir -p /tmp/test
+RUN echo "hello!" > /tmp/test/greeting
 
+FROM debian:buster
+RUN --mount=type=bind,target=/tmp/test,source=/tmp/test,from=builder cat /tmp/test/greeting
