@@ -1,9 +1,7 @@
 #!/bin/bash
+set -eux
 
-echo "BUILDING"
+env
 
 export DOCKER_BUILDKIT=1
-
 docker build -f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
-
-echo "BUILD FINISHED"
