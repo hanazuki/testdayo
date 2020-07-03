@@ -6,5 +6,9 @@ EOF
 
 docker version
 
+
 docker buildx create --use
+
+docker buildx ls
+
 docker buildx build --load --platform linux/amd64,linux/arm64 -f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
