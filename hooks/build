@@ -1,14 +1,10 @@
 #!/bin/bash
 set -eux
-
-env
-
-export DOCKER_BUILDKIT=1
-
 install -D /dev/stdin ~/.docker/config.json <<EOF
 {"experimental": "enabled"}
 EOF
 
 docker version
 
-docker build -f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
+docker buildx create --use
+docker buildx build --load -f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
